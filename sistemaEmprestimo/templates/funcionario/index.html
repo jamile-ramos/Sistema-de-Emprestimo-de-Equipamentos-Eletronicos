@@ -1,0 +1,42 @@
+{% extends 'funcionario/_base.html' %}
+
+{% block content %}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-sm-flex align-items-center justify-content-between mb-4">
+        <h4>Funcionários</h4>
+        <a class="btn btn-primary" href="{% url 'add' %}">+ Adicionar</a>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Cargo</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for f in funcionarios %}
+                        <tr>
+                            <td>{{ f.id }}</td>
+                            <td>{{ f.username }}</td>
+                            <td>{{ f.email }}</td>
+                            <td>{{ f.get_cargo_display }}</td>
+                            <td>
+                                <a class="btn btn-info" href="{% url 'detail' %}">Detail</a>
+                                <a class="btn btn-warning" href="{% url 'edit'  %}">Edit</a>
+                                <a class="btn btn-danger" href="{% url 'remove'%}">X</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
