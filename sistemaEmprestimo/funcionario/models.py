@@ -1,7 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import User
+from conta.models import Usuario
 
-class Funcionario(User):
+class Funcionario(Usuario):
     class Cargo(models.IntegerChoices):
         FUNCIONARIO = 1, 'Funcionario'
         ESTAGIARIO = 2, 'Estagiario'
@@ -11,3 +11,4 @@ class Funcionario(User):
         choices=Cargo.choices,
         default=Cargo.OUTRO,
     )
+    

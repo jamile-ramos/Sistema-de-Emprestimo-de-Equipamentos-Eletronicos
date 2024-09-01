@@ -4,8 +4,8 @@
 
 <p>Id : {{ funcionario.id }}</p>
 <p>Nome : {{ funcionario.username }}</p>
-<p>Age : {{ funcionario.email }}</p>
-<p>CPF : {{ funcionario.cargo }}</p>
+<p>Email : {{ funcionario.email }}</p>
+<p>Cargo : {{ funcionario.get_cargo_display }}</p>
 <a href="/funcionario">Voltar</a>
 
 {% endblock %}

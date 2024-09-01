@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'funcionario'
+    'funcionario',
+    'conta'
 ]
 
 MIDDLEWARE = [
@@ -127,8 +128,9 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = '/people/'
-LOGOUT_REDIRECT_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/funcionario/'
+LOGOUT_REDIRECT_URL = '/conta/login/'
+LOGIN_URL = '/conta/login/'
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 

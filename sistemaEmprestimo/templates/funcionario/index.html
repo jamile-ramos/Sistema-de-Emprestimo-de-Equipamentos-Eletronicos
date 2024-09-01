@@ -27,9 +27,9 @@
                             <td>{{ f.email }}</td>
                             <td>{{ f.get_cargo_display }}</td>
                             <td>
-                                <a class="btn btn-info" href="{% url 'detail' %}">Detail</a>
-                                <a class="btn btn-warning" href="{% url 'edit'  %}">Edit</a>
-                                <a class="btn btn-danger" href="{% url 'remove'%}">X</a>
+                                <a class="btn btn-info" href="{% url 'detail' f.id %}">Detail</a>
+                                <a class="btn btn-warning" href="{% url 'edit' f.id  %}">Edit</a>
+                                <a class="btn btn-danger" href="{% url 'remove' f.id %}">X</a>
                             </td>
                         </tr>
                     {% endfor %}
