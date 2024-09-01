@@ -5,8 +5,7 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def index(request):
-    funcionarios = Funcionario.objects.all()
-    return render(request, 'funcionario/index.html', {'funcionarios':funcionarios})
+    return render(request, 'funcionario/index.html')
     
 @login_required
 def add(request):
@@ -14,7 +13,7 @@ def add(request):
         form = FuncionarioForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('/funcionario')
+            return redirect('/funcionario/list/')
     else:
         form = FuncionarioForm()
     
@@ -32,14 +31,19 @@ def edit(request, funcionarioId):
         form = FuncionarioForm(request.POST, instance=funcionario)
         if form.is_valid():
             form.save()
-            return redirect('/funcionario')
+            return redirect('/funcionario/list')
     else:
         form = FuncionarioForm(instance=funcionario)
     
     return render(request, 'funcionario/edit.html', {'form':form})
+
+@login_required
+def list(request):
+    funcionarios = Funcionario.objects.all()
+    return render(request, 'funcionario/list.html', {'funcionarios':funcionarios})
   
 @login_required      
 def remove(request, funcionarioId):
     funcionario = Funcionario.objects.get(pk=funcionarioId)
     funcionario.delete()
-    return redirect('/funcionario')
+    return redirect('/funcionario/list')

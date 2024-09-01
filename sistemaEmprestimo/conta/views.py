@@ -31,3 +31,9 @@ def logout_view(request):
 def view_user(request):
     user = request.user
     return render(request, 'funcionario/_base.html', {'user':user})
+
+def perfil(request):
+    user = request.user
+    return render(request, 'funcionario/perfil.html', {'user':user})
+
+

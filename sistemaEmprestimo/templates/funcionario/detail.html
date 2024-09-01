@@ -2,10 +2,39 @@
 
 {% block content %}
 
-<p>Id : {{ funcionario.id }}</p>
-<p>Nome : {{ funcionario.username }}</p>
-<p>Email : {{ funcionario.email }}</p>
-<p>Cargo : {{ funcionario.get_cargo_display }}</p>
-<a href="/funcionario">Voltar</a>
+<div class="pagetitle">
+  <h1>Mais informações</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/funcionario/list/">Funcionários</a></li>
+      <li class="breadcrumb-item active">Mais informações</li>
+    </ol>
+  </nav>
+</div><!-- End Page Title -->
+
+<section class="section">
+    <div class="row">
+      <div class="col-lg-6">
+
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Informações</h5>
+
+            <!-- Default List group -->
+            <ul class="list-group">
+              <li class="list-group-item">Id : {{ funcionario.id }}</li>
+              <li class="list-group-item">Nome : {{ funcionario.username }}</li>
+              <li class="list-group-item">Email : {{ funcionario.email }}</li>
+              <li class="list-group-item">Cargo : {{ funcionario.get_cargo_display }}</li>
+              <li class="list-group-item"><a class="btn btn-primary" href="/funcionario/list/">Voltar</a></li>
+            </ul><!-- End Default List group -->
+            
+            
+
+          </div>
+        </div>
+
+    </div>
+  </section>
 
 {% endblock %}
