@@ -4,6 +4,8 @@ from django.http import HttpResponse
 from conta.forms import UsuarioForm
 from django.contrib.auth import logout
 from django.contrib.auth.models import Group
+from funcionario.models import Funcionario
+from funcionario.forms import FuncionarioForm
 
 def createUser(request):
     if request.method == "POST":
@@ -34,6 +36,11 @@ def view_user(request):
 
 def perfil(request):
     user = request.user
-    return render(request, 'funcionario/perfil.html', {'user':user})
+    if Funcionario.objects.filter(pk=user.id).exists():
+        funcionario = Funcionario.objects.get(pk=user.id)
+    else:
+        funcionario = user
+
+    return render(request, 'registration/perfil.html', {'funcionario': funcionario})
 
 
