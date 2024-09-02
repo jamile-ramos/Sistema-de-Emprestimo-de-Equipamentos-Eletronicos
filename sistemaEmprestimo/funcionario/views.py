@@ -6,13 +6,6 @@ from django.contrib.auth.models import Group
 from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
 
-# TESTE DE USUÁRIO
-def isFuncionarios(user):
-    return user.groups.filter(name='Funcionarios').exists()
-
-def isAdmin(user):
-    return user.groups.filter(name='Admin').exists()
-
 @login_required
 def index(request):
     isAdmin = request.user.groups.filter(name='Admin').exists()
