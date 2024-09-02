@@ -1,0 +1,16 @@
+{% extends 'funcionario/_base.html' %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h2>Detalhes do Equipamento</h2>
+    
+    <ul>
+      <li>Código: {{ equipamento.codigo }}</li>
+      <li>Nome: {{ equipamento.nome }}</li>
+      <li>Marca: {{ equipamento.marca }}</li>
+      <li>Status: {{ equipamento.get_status_display }}</li>
+    </ul>
+    
+    <a href="{% url 'listar_equipamentos' %}" class="btn btn-primary">Voltar para a lista</a>
+  </div>
+{% endblock %}

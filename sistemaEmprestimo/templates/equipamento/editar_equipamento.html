@@ -1,0 +1,14 @@
+{% extends 'funcionario/_base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Editar Equipamento</h1>
+    
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+        <a href="{% url 'detalhar_equipamento' equipamento.id %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

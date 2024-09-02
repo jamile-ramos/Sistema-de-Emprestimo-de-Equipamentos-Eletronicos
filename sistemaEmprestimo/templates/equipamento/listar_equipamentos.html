@@ -1,0 +1,36 @@
+{% extends 'funcionario/_base.html' %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h1>Lista de Equipamentos</h1>
+    
+    <a href="{% url 'criar_equipamento' %}" class="btn btn-primary mb-3">Novo Equipamento</a>
+    
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Nome</th>
+          <th>Marca</th>
+          <th>Status</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for equipamento in equipamentos %}
+          <tr>
+            <td>{{ equipamento.codigo }}</td>
+            <td>{{ equipamento.nome }}</td>
+            <td>{{ equipamento.marca }}</td>
+            <td>{{ equipamento.get_status_display }}</td>
+            <td>
+              <a href="{% url 'editar_equipamento' equipamento.id %}" class="btn btn-sm btn-primary">Editar</a>
+              <a href="{% url 'detalhar_equipamento' equipamento.id %}" class="btn btn-sm btn-info">Detalhes</a>
+              <a href="{% url 'deletar_equipamento' equipamento.id %}" class="btn btn-sm btn-danger">Deletar</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
