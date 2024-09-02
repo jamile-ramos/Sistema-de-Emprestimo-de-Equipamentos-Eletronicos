@@ -1,0 +1,58 @@
+{% extends 'funcionario/_base.html' %}
+
+{% block content %}
+
+<div class="pagetitle">
+    <h1>Lista de funcionários cadastrados</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/funcionario/">Home</a></li>
+        <li class="breadcrumb-item active">Funcionarios</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-sm-flex align-items-center justify-content-between mb-4">
+        <h4>Funcionários</h4>
+        <a class="btn btn-primary" href="{% url 'emprestimoAdd' %}">+ Adicionar</a>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Requisitante</th>
+                        <th>Tipo de Requisitante</th>
+                        <th>Curso</th>
+                        <th>Data do emprestimo</th>
+                        <th>Data do devolução</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for e in emprestimos %}
+                        <tr>
+                            <td>{{ e.id }}</td>
+                            <td>{{ e.requisitante }}</td>
+                            <td>{{ e.get_tipoDoRequisitante_display }}</td>
+                            <td>{{ e.curso }}</td>
+                            <td>{{ e.dataEmprestimo }}</td>
+                            <td>{{ e.dataDevolucao }}</td>
+                            <td>{{ e.get_status_display }}</td>
+                            <td>
+                                <a class="btn btn-info" href="{% url 'emprestimoDetail' e.id %}" data-bs-toggle="tooltip" data-bs-placement="top" title="Ver detalhes"><i class="bi bi-eye"></i></a>
+                                <a class="btn btn-warning" href="{% url 'emprestimoEdit' e.id  %}" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"><i class="bi bi-pencil"></i></a>
+                                <a class="btn btn-danger" href="{% url 'emprestimoRemove' e.id %}" data-bs-toggle="tooltip" data-bs-placement="top" title="Excluir"><i class="bi bi-trash"></i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

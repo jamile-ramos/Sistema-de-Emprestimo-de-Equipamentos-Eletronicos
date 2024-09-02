@@ -1,0 +1,55 @@
+{% extends 'funcionario/_base.html' %}
+
+{% block content %}
+
+<div class="pagetitle">
+  <h1>Adicionar Emprestimo</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/funcionario/list/">Lista de Funcionários</a></li>
+      <li class="breadcrumb-item active">Adicionar</li>
+    </ol>
+  </nav>
+</div><!-- End Page Title -->
+
+
+    <section class="section flex center">
+      <div class="row">
+        <div class="col-lg-6">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Preencha as informações abaixo</h5>
+
+              <!-- Horizontal Form -->
+              <form method="post">
+                {% csrf_token %}
+                
+                {% for field in form %}
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                {{ field }}
+                                {% if field.help_text %}
+                                    <small id="{{ field.id_for_label }}_help" class="form-text text-muted">{{ field.help_text }}</small>
+                                {% endif %}
+                                {% for error in field.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                
+                <button type="submit" class="btn btn-primary">Enviar</button>
+            </form>
+            
+
+            </div>
+          </div>
+
+    </section>
+
+
+{% endblock %}

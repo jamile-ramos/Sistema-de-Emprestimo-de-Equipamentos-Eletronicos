@@ -15,7 +15,7 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3 d-sm-flex align-items-center justify-content-between mb-4">
         <h4>Funcionários</h4>
-        <a class="btn btn-primary" href="{% url 'add' %}">+ Adicionar</a>
+        <a class="btn btn-primary" href="{% url 'funcionarioAdd' %}">+ Adicionar</a>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -37,9 +37,9 @@
                             <td>{{ f.email }}</td>
                             <td>{{ f.get_cargo_display }}</td>
                             <td>
-                                <a class="btn btn-info" href="{% url 'detail' f.id %}">Mais Informações</a>
-                                <a class="btn btn-warning" href="{% url 'edit' f.id  %}">Editar</a>
-                                <a class="btn btn-danger" href="{% url 'remove' f.id %}">X</a>
+                                <a class="btn btn-info" href="{% url 'funcionarioDetail' f.id %}" data-bs-toggle="tooltip" data-bs-placement="top" title="Ver detalhes"><i class="bi bi-eye"></i></a>
+                                <a class="btn btn-warning" href="{% url 'funcionarioEdit' f.id  %}" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"><i class="bi bi-pencil"></i></a>
+                                <a class="btn btn-danger" href="{% url 'funcionarioRemove' f.id %}" data-bs-toggle="tooltip" data-bs-placement="top" title="Excluir"><i class="bi bi-trash"></i></a>
                             </td>
                         </tr>
                     {% endfor %}

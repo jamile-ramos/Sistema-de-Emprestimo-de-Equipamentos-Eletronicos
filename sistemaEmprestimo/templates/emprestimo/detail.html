@@ -1,0 +1,43 @@
+{% extends 'funcionario/_base.html'%}
+
+{% block content %}
+
+<div class="pagetitle">
+  <h1>Ver detalhes</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/emprestimo/list/">Funcionários</a></li>
+      <li class="breadcrumb-item active">Ver detalhes</li>
+    </ol>
+  </nav>
+</div><!-- End Page Title -->
+
+<section class="section">
+    <div class="row">
+      <div class="col-lg-6">
+
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Informações</h5>
+
+            <!-- Default List group -->
+            <ul class="list-group">
+              <li class="list-group-item">Id : {{ emprestimo.id }}</li>
+              <li class="list-group-item">Nome : {{ emprestimo.requisitante }}</li>
+              <li class="list-group-item">Tipo de Requisitante : {{ emprestimo.get_tipoDoRequisitante_display }}</li>
+              <li class="list-group-item">Curso : {{ emprestimo.curso }}</li>              
+              <li class="list-group-item">Data do Emprestimo : {{ emprestimo.dataEmprestimo }}</li>
+              <li class="list-group-item">Data de devolução : {{ emprestimo.dataDevolucao }}</li>
+              <li class="list-group-item">Observações de devolução : {{ emprestimo.observacoesDeDevolucao }}</li>
+              <li class="list-group-item">Funcionario Responsável : {{ emprestimo.funcionario }}</li>
+              <li class="list-group-item">Status : {{ emprestimo.status }}</li>
+              <li class="list-group-item"><a class="btn btn-primary" href="/emprestimo/list/">Voltar</a></li>
+            </ul><!-- End Default List group -->
+
+          </div>
+        </div>
+
+    </div>
+  </section>
+
+{% endblock %}

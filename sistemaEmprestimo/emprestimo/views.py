@@ -12,12 +12,12 @@ def index(request):
 @login_required
 def add(request):
     if request.method == 'POST':
-        form = EmprestimoForm(request.POST)
+        form = EmprestimoForm(request.POST, user=request.user)
         if form.is_valid():
             form.save()
             return redirect('/emprestimo/list/')
     else:
-        form = EmprestimoForm()
+        form = EmprestimoForm(user=request.user)
     
     return render(request, 'emprestimo/forms.html', {'form':form})
     
@@ -28,7 +28,7 @@ def detail(request, emprestimoId):
  
 @login_required    
 def edit(request, emprestimoId):
-    emprestimo = emprestimo.objects.get(pk=emprestimoId)
+    emprestimo = Emprestimo.objects.get(pk=emprestimoId)
     if request.method == 'POST':
         form = EmprestimoForm(request.POST, instance=emprestimo)
         if form.is_valid():
