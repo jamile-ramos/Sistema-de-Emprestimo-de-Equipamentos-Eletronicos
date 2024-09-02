@@ -6,7 +6,7 @@
   <h1>Editar</h1>
   <nav>
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="/funcionario/list/">Lista de Funcionários</a></li>
+      <li class="breadcrumb-item"><a href="/funcionario/list/">Lista de Emprestimos</a></li>
       <li class="breadcrumb-item active">Editar</li>
     </ol>
   </nav>
@@ -42,7 +42,8 @@
                     </div>
                 {% endfor %}
                 
-                <button type="submit" class="btn btn-primary">Enviar</button>
+                <a href="{% url 'emprestimoList' %}" class="btn btn-secondary">Cancelar</a>
+                <button type="submit" class="btn btn-primary">Salvar alterações</button>
             </form>
             
 

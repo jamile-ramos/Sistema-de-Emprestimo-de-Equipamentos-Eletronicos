@@ -45,5 +45,7 @@ def list(request):
 @login_required      
 def remove(request, funcionarioId):
     funcionario = Funcionario.objects.get(pk=funcionarioId)
-    funcionario.delete()
-    return redirect('/funcionario/list')
+    if request.method == 'POST':
+        funcionario.delete()
+        return redirect('/funcionario/list')
+    return render(request, 'funcionario/confirmar_exclusao.html', {'funcionario':funcionario})

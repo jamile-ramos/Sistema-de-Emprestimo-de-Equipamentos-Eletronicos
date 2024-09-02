@@ -6,7 +6,7 @@
   <h1>Ver detalhes</h1>
   <nav>
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="/emprestimo/list/">Funcionários</a></li>
+      <li class="breadcrumb-item"><a href="/emprestimo/list/">Emprestimos</a></li>
       <li class="breadcrumb-item active">Ver detalhes</li>
     </ol>
   </nav>
@@ -30,7 +30,7 @@
               <li class="list-group-item">Data de devolução : {{ emprestimo.dataDevolucao }}</li>
               <li class="list-group-item">Observações de devolução : {{ emprestimo.observacoesDeDevolucao }}</li>
               <li class="list-group-item">Funcionario Responsável : {{ emprestimo.funcionario }}</li>
-              <li class="list-group-item">Status : {{ emprestimo.status }}</li>
+              <li class="list-group-item">Status : {{ emprestimo.get_status_display }}</li>
               <li class="list-group-item"><a class="btn btn-primary" href="/emprestimo/list/">Voltar</a></li>
             </ul><!-- End Default List group -->
 

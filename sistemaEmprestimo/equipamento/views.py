@@ -40,15 +40,13 @@ def editar_equipamento(request, id):
     else:
         form = EquipamentoForm(instance=equipamento)
     
-    return render(request, 'equipamento/editar_equipamento.html', {'form': form, 'equipamento': equipamento})
+    return render(request, 'equipamento/editar_equipamento.html', {'form': form})
 
 @login_required
 def deletar_equipamento(request, id):
     equipamento = get_object_or_404(Equipamento, pk=id)
-    if request.method == 'POST':
-        equipamento.delete()
-        return redirect('listar_equipamentos')
-    return render(request, 'equipamento/confirmar_exclusao.html', {'equipamento': equipamento})
+    equipamento.delete()
+    return redirect('listar_equipamentos')
 
 @login_required
 def atualizar_status(request, id):
