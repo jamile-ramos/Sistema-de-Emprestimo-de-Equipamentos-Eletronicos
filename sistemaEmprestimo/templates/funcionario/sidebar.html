@@ -10,13 +10,15 @@
           <span>Home</span>
         </a>
       </li><!-- End Dashboard Nav -->
-
+      
+      {% if isAdmin %}
       <li class="nav-item">
-        <a class="nav-link {% if request.path == '/funcionario/list/' %}active{% else %}collapsed{% endif %}" href="/funcionario/list/">
-          <i class="bi bi-people"></i>
-          <span>Funcionarios</span>
-        </a>
+          <a class="nav-link {% if request.path == '/funcionario/list/' %}active{% else %}collapsed{% endif %}" href="/funcionario/list/">
+              <i class="bi bi-people"></i>
+              <span>Funcionários</span>
+          </a>
       </li><!-- End Profile Page Nav -->
+      {% endif %}
 
       <li class="nav-item">
         <a class="nav-link {% if request.path == '/emprestimo/list/' %}active{% else %}collapsed{% endif %}" href="/emprestimo/list/">

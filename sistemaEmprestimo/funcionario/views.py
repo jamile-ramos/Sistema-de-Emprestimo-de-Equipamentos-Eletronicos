@@ -6,11 +6,18 @@ from django.contrib.auth.models import Group
 from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
 
-@permission_required('funcionarios.add_funcionario', raise_exception=True)
+# TESTE DE USUÁRIO
+def isFuncionarios(user):
+    return user.groups.filter(name='Funcionarios').exists()
+
+def isAdmin(user):
+    return user.groups.filter(name='Admin').exists()
+
 @login_required
 def index(request):
-    return render(request, 'funcionario/index.html')
-    
+    isAdmin = request.user.groups.filter(name='Admin').exists()
+    return render(request, 'funcionario/index.html', {'isAdmin':isAdmin})
+
 @login_required
 def add(request):
     if request.method == 'POST':
