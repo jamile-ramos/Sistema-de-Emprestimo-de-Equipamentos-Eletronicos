@@ -4,7 +4,9 @@ from .models import Funcionario
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 from django.contrib import messages
+from django.contrib.auth.decorators import permission_required
 
+@permission_required('funcionarios.add_funcionario', raise_exception=True)
 @login_required
 def index(request):
     return render(request, 'funcionario/index.html')
