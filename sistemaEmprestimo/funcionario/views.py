@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from .forms import FuncionarioForm
 from .models import Funcionario
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import Group
+from django.contrib import messages
 
 @login_required
 def index(request):
@@ -12,7 +14,13 @@ def add(request):
     if request.method == 'POST':
         form = FuncionarioForm(request.POST)
         if form.is_valid():
-            form.save()
+            funcionario = form.save()
+            
+            grupo_funcionarios = Group.objects.get(name='Funcionarios')
+            funcionario.groups.add(grupo_funcionarios)
+            
+            # Exibe uma mensagem de sucesso
+            messages.success(request, 'Funcionário cadastrado com sucesso!')
             return redirect('/funcionario/list/')
     else:
         form = FuncionarioForm()
