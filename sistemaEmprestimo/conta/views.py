@@ -21,7 +21,7 @@ def createUser(request):
             #Chamado para salvar quaisquer relacionamentos many-to-many que o formulário possa ter. Isso é necessário porque commit=False impede que esses relacionamentos sejam salvos automaticamente.
             form.save_m2m()
             
-            return redirect('index') 
+            return redirect('/funcionario/list/') 
     else:
         form = UsuarioForm()
     return render(request, 'registration/register.html', {'form': form})
