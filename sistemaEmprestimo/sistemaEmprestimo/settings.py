@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'conta',
     'emprestimo',
     'equipamento',
+    'itemEmprestimo'
 ]
 
 MIDDLEWARE = [
