@@ -132,7 +132,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = '/funcionario/'
 LOGOUT_REDIRECT_URL = '/conta/login/'
 LOGIN_URL = '/conta/login/'
-
-CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
-
-CRISPY_TEMPLATE_PACK = "bootstrap5"
