@@ -6,7 +6,35 @@ class Equipamento(models.Model):
     nome = models.CharField(max_length=100)
     codigo = models.CharField(max_length=50, unique=True)
     marca = models.CharField(max_length=50)
-    status = models.PositiveIntegerField(choices=[(1, 'Disponível'), (2, 'Indisponível'), (3, 'Em Manutenção')], default=1)
+    status = models.PositiveIntegerField(choices=[(1, 'Disponível'), (2, 'Emprestado'), (3, 'Em Manutenção')], default=1)
 
     def __str__(self):
         return self.nome
+ 
+    def emprestar(self):
+        if self.status == 1:
+            self.status = 2
+            self.save()
+        else:
+            raise ValueError('Equipamento não disponível para empréstimo')
+    
+    def devolver(self):
+        if self.status == 2:
+            self.status = 1
+            self.save()
+        else:
+            raise ValueError('Equipamento não está emprestado')
+
+    def iniciar_manutencao(self):
+        if self.status == 1:
+            self.status = 3
+            self.save()
+        else:
+            raise ValueError('Equipamento não pode ser colocado em manutenção')
+
+    def concluir_manutencao(self):
+        if self.status == 3:
+            self.status = 1
+            self.save()
+        else:
+            raise ValueError('Equipamento não está em manutenção')

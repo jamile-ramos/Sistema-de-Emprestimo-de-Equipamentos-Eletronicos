@@ -135,7 +135,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = '/funcionario/'
 LOGOUT_REDIRECT_URL = '/conta/login/'
 LOGIN_URL = '/conta/login/'
-
-# settings.py
-
-LANGUAGE_CODE = 'pt-br'

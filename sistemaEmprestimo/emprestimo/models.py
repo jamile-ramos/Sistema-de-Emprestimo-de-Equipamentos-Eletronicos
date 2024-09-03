@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils import timezone
 
 class Emprestimo(models.Model):
     class TipoDoRequisitante(models.IntegerChoices):
@@ -17,7 +16,7 @@ class Emprestimo(models.Model):
     tipoDoRequisitante = models.IntegerField(choices=TipoDoRequisitante.choices, default=TipoDoRequisitante.OUTRO)
     sala = models.CharField(max_length=50)
     curso = models.CharField(max_length=20, null=True)
-    dataEmprestimo = models.DateField(default=timezone.now)
+    dataEmprestimo = models.DateField(null=False, blank=False)
     dataDevolucao = models.DateField(null=True, blank=True)
     observacoesDeDevolucao = models.CharField(max_length=255, blank=True)  
     status = models.IntegerField(choices=Status.choices, default=Status.ANDAMENTO) 

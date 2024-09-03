@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from .forms import EmprestimoForm
 from .models import Emprestimo
 from django.contrib.auth.decorators import login_required
+from itemEmprestimo.models import ItemEmprestimo
 
 @login_required
 def index(request):
@@ -14,7 +15,11 @@ def add(request):
     if request.method == 'POST':
         form = EmprestimoForm(request.POST, user=request.user)
         if form.is_valid():
-            form.save()
+            emprestimo = form.save()
+            equipamentos = form.cleaned_data['equipamentos']
+            
+            for equipamento in equipamentos:
+                equipamento.emprestar()                
             return redirect('/emprestimo/list/')
     else:
         form = EmprestimoForm(user=request.user)
@@ -32,16 +37,19 @@ def edit(request, emprestimoId):
     if request.method == 'POST':
         form = EmprestimoForm(request.POST, instance=emprestimo)
         if form.is_valid():
+            print("Formulário válido:", form.cleaned_data)  # Verifique os dados limpos
             form.save()
             return redirect('/emprestimo/list')
+        else:
+            print("Formulário inválido:", form.errors)  # Verifique erros do formulário
     else:
         form = EmprestimoForm(instance=emprestimo)
     
-    return render(request, 'emprestimo/edit.html', {'form':form})
+    return render(request, 'emprestimo/edit.html', {'form': form})
 
 @login_required
 def list(request):
-    emprestimos = Emprestimo.objects.all()
+    emprestimos = Emprestimo.objects.all().distinct()
     return render(request, 'emprestimo/list.html', {'emprestimos':emprestimos})
   
 @login_required      

@@ -24,7 +24,7 @@
                     <tr>
                         <th>Requisitante</th>
                         <th>Tipo de Requisitante</th>
-                        <th>Curso</th>
+                        <th>Equipamentos</th>
                         <th>Data do empréstimo</th>
                         <th>Data da devolução</th>
                         <th>Status</th>
@@ -36,7 +36,17 @@
                         <tr>
                             <td>{{ e.requisitante }}</td>
                             <td>{{ e.get_tipoDoRequisitante_display }}</td>
-                            <td>{{ e.curso }}</td>
+                            <td>
+                                {% if e.equipamentos.all %}
+                                    <ul>
+                                        {% for equipamento in e.equipamentos.all %}
+                                            <li>{{ equipamento.nome }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    Nenhum equipamento
+                                {% endif %}
+                            </td>
                             <td>{{ e.dataEmprestimo|date:"d/m/Y" }}</td>
                             <td>{{ e.dataDevolucao|date:"d/m/Y" }}</td>
                             <td>{{ e.get_status_display }}</td>

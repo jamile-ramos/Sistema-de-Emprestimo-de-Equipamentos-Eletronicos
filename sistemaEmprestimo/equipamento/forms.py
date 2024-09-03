@@ -4,7 +4,7 @@ from .models import Equipamento
 class EquipamentoForm(forms.ModelForm):
     class Meta:
         model = Equipamento
-        fields = ['nome', 'codigo', 'marca', 'status']
+        fields = ['nome', 'codigo', 'marca']
         widgets = {
             'status': forms.Select(
                 choices=[(1, 'Disponível'), (2, 'Indisponível'), (3, 'Em Manutenção')],
