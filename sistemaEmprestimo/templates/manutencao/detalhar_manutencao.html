@@ -1,0 +1,39 @@
+{% extends 'funcionario/_base.html'%}
+
+{% block content %}
+
+<div class="pagetitle">
+  <h1>Ver detalhes</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/manutencao/">Manutencões</a></li>
+      <li class="breadcrumb-item active">Ver detalhes</li>
+    </ol>
+  </nav>
+</div><!-- End Page Title -->
+
+<section class="section">
+    <div class="row">
+      <div class="col-lg-6">
+
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Informações</h5>
+
+            <!-- Default List group -->
+            <ul class="list-group">
+              <li class="list-group-item">Data de Início :{{ manutencao.dataInicio|date:"d/m/Y" }}</li>
+              <li class="list-group-item">Data de Conclusão : {{ manutencao.dataConclusao|date:"d/m/Y" }}</li>
+              <li class="list-group-item">Equipamento : {{ manutencao.equipamento.nome }}</li>    
+              <li class="list-group-item">Funcionário: {{ manutencao.funcionario.username }}</li>
+              <li class="list-group-item">Status : {{ manutencao.get_status_display }}</li>
+              <li class="list-group-item"><a class="btn btn-primary" href="/manutencao/">Voltar</a></li>
+            </ul><!-- End Default List group -->
+
+          </div>
+        </div>
+
+    </div>
+  </section>
+
+{% endblock %}

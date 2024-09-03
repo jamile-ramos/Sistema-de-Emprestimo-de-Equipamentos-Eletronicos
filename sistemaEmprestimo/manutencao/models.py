@@ -9,10 +9,10 @@ from funcionario.models import Funcionario
 
 class Manutencao(models.Model):
     equipamento = models.ForeignKey(Equipamento, on_delete=models.CASCADE)
-    funcionario = models.ForeignKey(Funcionario, on_delete=models.CASCADE)
+    funcionario = models.ForeignKey(Funcionario, on_delete=models.CASCADE, null=True)
     descricao = models.TextField()
-    dataInicio = models.DateTimeField(default=now, null=True, blank=True)
-    dataConclusao = models.DateTimeField(null=True, blank=True)
+    dataInicio = models.DateField(default=now, null=True, blank=True)
+    dataConclusao = models.DateField(null=True, blank=True)
     manutentor = models.CharField(max_length=100)
     observacoesDeConclusao = models.TextField(null=True, blank=True)
     status = models.IntegerField(choices=[
@@ -22,8 +22,9 @@ class Manutencao(models.Model):
     ], default=2)
 
     def concluir_manutencao(self, status, observacoes=None):
-        self.dataConclusao = datetime.now()
+        self.dataConclusao = now()
         self.status = status
+        self.equipamento.concluirManutencao()
         if observacoes:
             self.observacoesDeConclusao = observacoes
         self.equipamento.concluirManutencao  # Retornar o equipamento ao status disponível

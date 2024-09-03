@@ -29,8 +29,6 @@ class Equipamento(models.Model):
         if self.status == 1:
             self.status = 3
             self.save()
-        else:
-            raise ValueError('Equipamento não pode ser colocado em manutenção')
 
     def concluirManutencao(self):
         if self.status == 3:
