@@ -1,10 +1,16 @@
 from django import forms
 from .models import Emprestimo
+from equipamento.models import Equipamento
 
 class EmprestimoForm(forms.ModelForm):
+    equipamentos = forms.ModelMultipleChoiceField(
+        queryset=Equipamento.objects.all(),  
+        widget=forms.CheckboxSelectMultiple(),
+        required=False
+    )
     class Meta:
         model = Emprestimo
-        fields = ['requisitante', 'tipoDoRequisitante', 'sala', 'curso', 'dataEmprestimo', 'dataDevolucao', 'funcionario', 'observacoesDeDevolucao', 'status']
+        fields = ['requisitante', 'tipoDoRequisitante', 'sala', 'curso', 'dataEmprestimo', 'dataDevolucao', 'funcionario', 'equipamentos', 'observacoesDeDevolucao', 'status']
         widgets = {
             'requisitante': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Digite o Nome'}),
             'tipoDoRequisitante': forms.Select(attrs={'class': 'form-control'}),
@@ -21,7 +27,6 @@ class EmprestimoForm(forms.ModelForm):
             'tipoDoRequisitante': 'Tipo de requisitante',
             'sala': 'Sala',
             'curso': 'Curso (Obrigatório apenas para alunos)',
-            'semestre': 'Semestre (Obrigatório apenas para alunos)',
             'dataEmprestimo': 'Data do Empréstimo',
             'dataDevolucao': 'Data de Devolução',
             'funcionario': 'Funcionário responsável pelo Empréstimo',
@@ -35,14 +40,3 @@ class EmprestimoForm(forms.ModelForm):
         if user:
             # Preenche o campo 'funcionario' com o usuário logado
             self.fields['funcionario'].initial = user.funcionario if hasattr(user, 'funcionario') else None
-
-    def clean(self):
-        cleaned_data = super().clean()
-        tipo_do_requisitante = cleaned_data.get('tipoDoRequisitante')
-        semestre = cleaned_data.get('semestre')
-
-        # Verifica se o tipo de requisitante é "Aluno" e o campo semestre está vazio
-        if tipo_do_requisitante == 'Aluno' and not semestre:
-            self.add_error('semestre', 'O campo "Semestre" é obrigatório quando o tipo de requisitante é "Aluno".')
-
-        return cleaned_data
