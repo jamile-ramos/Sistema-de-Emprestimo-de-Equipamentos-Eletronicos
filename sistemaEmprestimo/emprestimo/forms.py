@@ -4,7 +4,7 @@ from equipamento.models import Equipamento
 
 class EmprestimoForm(forms.ModelForm):
     equipamentos = forms.ModelMultipleChoiceField(
-        queryset=Equipamento.objects.all(),  
+        queryset=Equipamento.objects.all().filter(status=1),  
         widget=forms.CheckboxSelectMultiple(),
         required=False
     )

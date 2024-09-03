@@ -5,6 +5,8 @@ from .forms import EmprestimoForm
 from .models import Emprestimo
 from django.contrib.auth.decorators import login_required
 from itemEmprestimo.models import ItemEmprestimo
+from equipamento.models import Equipamento
+from django.contrib import messages
 
 @login_required
 def index(request):
@@ -12,6 +14,12 @@ def index(request):
     
 @login_required
 def add(request):
+    equipamentosDisponiveis = Equipamento.objects.filter(status=1)
+
+    if not equipamentosDisponiveis.exists():
+        messages.warning(request, "Não há equipamentos disponíveis para empréstimo.")
+        return redirect('/emprestimo/list/')
+    
     if request.method == 'POST':
         form = EmprestimoForm(request.POST, user=request.user)
         if form.is_valid():
