@@ -26,11 +26,11 @@ class Manutencao(models.Model):
         self.status = status
         if observacoes:
             self.observacoesDeConclusao = observacoes
-        self.equipamento.alterar_status(1)  # Retornar o equipamento ao status disponível
+        self.equipamento.concluirManutencao  # Retornar o equipamento ao status disponível
         self.save()
 
     def save(self, *args, **kwargs):
         # Se for uma nova manutenção, marcar o equipamento como "Em Manutenção"
         if not self.pk:
-            self.equipamento.alterar_status(3)
+            self.equipamento.iniciarManutencao
         super().save(*args, **kwargs)

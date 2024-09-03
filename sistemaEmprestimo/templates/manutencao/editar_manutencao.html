@@ -1,0 +1,19 @@
+{% extends "funcionario/_base.html" %}
+
+{% block title %}
+    Editar Manutenção
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <h2>Editar Manutenção</h2>
+        
+        <form method="post">
+            {% csrf_token %}
+            {{ form.equipamento|attr:"required" }}
+            {{ form.descricao|attr:"required" }}
+            {{ form.manutentor|attr:"required" }}
+            <button type="submit" class="btn btn-primary">Salvar</button>
+        </form>
+    </div>
+{% endblock %}

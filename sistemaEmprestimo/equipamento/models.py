@@ -25,14 +25,14 @@ class Equipamento(models.Model):
         else:
             raise ValueError('Equipamento não está emprestado')
 
-    def iniciar_manutencao(self):
+    def iniciarManutencao(self):
         if self.status == 1:
             self.status = 3
             self.save()
         else:
             raise ValueError('Equipamento não pode ser colocado em manutenção')
 
-    def concluir_manutencao(self):
+    def concluirManutencao(self):
         if self.status == 3:
             self.status = 1
             self.save()

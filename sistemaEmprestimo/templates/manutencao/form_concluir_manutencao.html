@@ -1,0 +1,11 @@
+{% extends "funcionario/_base.html" %}
+
+{% block content %}
+  <h2>Concluir Manutenção</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Concluir</button>
+    <a href="/manutencao/">Voltar para lista</a>
+  </form>
+{% endblock %}

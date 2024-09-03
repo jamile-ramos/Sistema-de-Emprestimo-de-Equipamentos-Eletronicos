@@ -1,0 +1,16 @@
+{% extends "funcionario/_base.html" %}
+
+{% block content %}
+<h2>Concluir Manutenção</h2>
+
+<div class="alert alert-warning">
+    <p>Você está prestes a concluir a manutenção do equipamento <strong>{{ manutencao.equipamento.nome }}</strong>.</p>
+    <p>Essa ação é irreversível. Deseja continuar?</p>
+</div>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Finalizar</button>
+</form>
+{% endblock %}

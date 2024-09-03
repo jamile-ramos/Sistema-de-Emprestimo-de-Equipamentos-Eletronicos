@@ -1,0 +1,15 @@
+{% extends "funcionario/_base.html" %}
+
+{% block content %}
+  <h2>Manutenções</h2>
+  <a href="{% url 'criar_manutencao' %}">Criar nova manutenção</a>
+  <ul>
+    {% for manutencao in manutencoes %}
+      <li>
+        {{ manutencao.descricao }} - {{ manutencao.status }}
+        <a href="{% url 'editar_manutencao' manutencao.pk %}">Editar</a>
+        <a href="{% url 'concluir_manutencao' manutencao.pk %}">Concluir</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
