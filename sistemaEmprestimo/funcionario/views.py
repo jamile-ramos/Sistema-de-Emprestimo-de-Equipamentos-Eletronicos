@@ -20,8 +20,7 @@ def add(request):
             
             grupo_funcionarios = Group.objects.get(name='Funcionarios')
             funcionario.groups.add(grupo_funcionarios)
-            
-            # Exibe uma mensagem de sucesso
+
             messages.success(request, 'Funcionário cadastrado com sucesso!')
             return redirect('/funcionario/list/')
     else:
@@ -41,6 +40,7 @@ def edit(request, funcionarioId):
         form = FuncionarioForm(request.POST, instance=funcionario)
         if form.is_valid():
             form.save()
+            messages.success(request, "Os dados foram alterados com sucesso!")
             return redirect('/funcionario/list')
     else:
         form = FuncionarioForm(instance=funcionario)

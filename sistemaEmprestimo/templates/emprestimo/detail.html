@@ -25,7 +25,18 @@
               <li class="list-group-item">Id : {{ emprestimo.id }}</li>
               <li class="list-group-item">Nome : {{ emprestimo.requisitante }}</li>
               <li class="list-group-item">Tipo de Requisitante : {{ emprestimo.get_tipoDoRequisitante_display }}</li>
-              <li class="list-group-item">Curso : {{ emprestimo.curso }}</li>              
+              <li class="list-group-item">Curso : {{ emprestimo.curso }}</li>    
+              <li class="list-group-item">Equipamentos : 
+                {% if emprestimo.equipamentos.all %}
+                    <ul>
+                      {% for equipamento in emprestimo.equipamentos.all %}
+                        <li>{{ equipamento.nome }}</li>
+                      {% endfor %}
+                    </ul>
+                {% else %}
+                    Nenhum equipamento
+                {% endif %}
+              </li>            
               <li class="list-group-item">Data do Emprestimo : {{ emprestimo.dataEmprestimo }}</li>
               <li class="list-group-item">Data de devolução : {{ emprestimo.dataDevolucao }}</li>
               <li class="list-group-item">Observações de devolução : {{ emprestimo.observacoesDeDevolucao }}</li>

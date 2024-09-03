@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .forms import EquipamentoForm, AtualizarStatusForm
 from .models import Equipamento
+from django.contrib import messages
 
 # Create your views here.
 
@@ -18,6 +19,7 @@ def criar_equipamento(request):
         form = EquipamentoForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Equipamento cadastrado com sucesso!')
             return redirect('/equipamento')
     else:
         form = EquipamentoForm()
@@ -36,6 +38,7 @@ def editar_equipamento(request, id):
         form = EquipamentoForm(request.POST, instance=equipamento)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Os dados foram alterados com sucesso!')
             return redirect('listar_equipamentos')
     else:
         form = EquipamentoForm(instance=equipamento)

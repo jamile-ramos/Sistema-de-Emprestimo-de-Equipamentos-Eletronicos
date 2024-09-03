@@ -45,11 +45,9 @@ def edit(request, emprestimoId):
     if request.method == 'POST':
         form = EmprestimoForm(request.POST, instance=emprestimo)
         if form.is_valid():
-            print("Formulário válido:", form.cleaned_data)  # Verifique os dados limpos
             form.save()
+            messages.success(request, 'Os dados foram alterados com sucesso!')
             return redirect('/emprestimo/list')
-        else:
-            print("Formulário inválido:", form.errors)  # Verifique erros do formulário
     else:
         form = EmprestimoForm(instance=emprestimo)
     
