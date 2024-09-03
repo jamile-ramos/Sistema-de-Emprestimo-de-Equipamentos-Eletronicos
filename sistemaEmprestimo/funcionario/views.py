@@ -18,8 +18,14 @@ def add(request):
         if form.is_valid():
             funcionario = form.save()
             
-            grupo_funcionarios = Group.objects.get(name='Funcionarios')
-            funcionario.groups.add(grupo_funcionarios)
+            cargo = form.cleaned_data['cargo']
+            
+            if cargo == 1:
+                grupoFuncionarios = Group.objects.get(name='Admin')
+                funcionario.groups.add(grupoFuncionarios)
+            else:
+                grupoFuncionarios = Group.objects.get(name='Funcionarios')
+                funcionario.groups.add(grupoFuncionarios)
 
             messages.success(request, 'Funcionário cadastrado com sucesso!')
             return redirect('/funcionario/list/')

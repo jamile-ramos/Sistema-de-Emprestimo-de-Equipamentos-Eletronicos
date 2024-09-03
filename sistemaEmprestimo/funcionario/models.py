@@ -3,9 +3,10 @@ from conta.models import Usuario
 
 class Funcionario(Usuario):
     class Cargo(models.IntegerChoices):
-        FUNCIONARIO = 1, 'Funcionario'
-        ESTAGIARIO = 2, 'Estagiario'
-        OUTRO = 3, 'Outro'
+        ROOT = 1, 'Root'
+        FUNCIONARIO = 2, 'Funcionario'
+        ESTAGIARIO = 3, 'Estagiario'
+        OUTRO = 4, 'Outro'
 
     cargo = models.IntegerField(
         choices=Cargo.choices,
