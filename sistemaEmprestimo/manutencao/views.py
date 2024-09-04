@@ -52,7 +52,7 @@ def criar_manutencao(request):
 
     return render(request, 'manutencao/form_manutencao.html', {'form': form})
 
-@login_required
+'''@login_required
 def editar_manutencao(request, pk):
     manutencao = get_object_or_404(Manutencao, pk=pk)
     
@@ -77,6 +77,32 @@ def editar_manutencao(request, pk):
         return redirect('listar_manutencoes')
     
     return render(request, 'manutencao/editar_manutencao.html', {'form': form})
+'''
+
+@login_required
+def editar_manutencao(request, pk):
+    manutencao = get_object_or_404(Manutencao, pk=pk)
+    
+    # Tente obter o Funcionario usando o ID do usuário
+    try:
+        funcionario = Funcionario.objects.get(id=request.user.id)
+    except Funcionario.DoesNotExist:
+        # Se não for possível encontrar um Funcionario, redirecione
+        return redirect('listar_manutencoes')
+    
+    # Permitir edição se for Root ou se for o responsável pela manutenção
+    if request.user.is_superuser or request.user.groups.filter(name='Admin').exists() or funcionario == manutencao.funcionario:
+        form = ManutencaoFormEdit(request.POST or None, instance=manutencao)
+        
+        if form.is_valid():
+            form.save()
+            return redirect('listar_manutencoes')
+        
+        return render(request, 'manutencao/editar_manutencao.html', {'form': form})
+    else:
+        # Se não tiver permissão, redirecione
+        messages.error(request, 'Você não tem permissão para editar esta manutenção.')
+        return redirect('listar_manutencoes')
 
 @login_required
 def concluir_manutencao(request, pk):
