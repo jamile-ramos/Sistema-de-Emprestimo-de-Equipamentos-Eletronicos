@@ -4,7 +4,6 @@ from .models import Funcionario
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 from django.contrib import messages
-from django.contrib.auth.decorators import permission_required
 
 @login_required
 def index(request):

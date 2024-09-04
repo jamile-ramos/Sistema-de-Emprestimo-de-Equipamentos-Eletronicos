@@ -23,10 +23,31 @@
             <!-- Default List group -->
             <ul class="list-group">
               <li class="list-group-item">Data de Início :{{ manutencao.dataInicio|date:"d/m/Y" }}</li>
-              <li class="list-group-item">Data de Conclusão : {{ manutencao.dataConclusao|date:"d/m/Y" }}</li>
+              <li class="list-group-item">Data de Conclusão :
+              {% if manutencao.dataConclusao %}
+              {{ manutencao.dataConclusao|date:"d/m/Y" }}
+              {% else %}
+              Manutenção não concluída
+              {% endif %}
+              </li>
               <li class="list-group-item">Equipamento : {{ manutencao.equipamento.nome }}</li>    
-              <li class="list-group-item">Funcionário: {{ manutencao.funcionario.username }}</li>
+              <li class="list-group-item">Descricao : {{ manutencao.descricao }}</li>
+              <li class="list-group-item">Funcionário:
+              {% if manutencao.funcionario.username %}
+                 {{ manutencao.funcionario.username }}
+              {% else %}
+              Root
+              {% endif %}
+              </li>
+              <li class="list-group-item">Manutentor : {{ manutencao.manutentor }}</li>
               <li class="list-group-item">Status : {{ manutencao.get_status_display }}</li>
+              <li class="list-group-item">Observações de conclusão : 
+              {% if manutencao.observacoesDeConclusao %}
+                {{ manutencao.observacoesDeConclusao }}
+              {% else %}
+                Sem observações de conclusão
+              {% endif %}
+              </li> 
               <li class="list-group-item"><a class="btn btn-primary" href="/manutencao/">Voltar</a></li>
             </ul><!-- End Default List group -->
 

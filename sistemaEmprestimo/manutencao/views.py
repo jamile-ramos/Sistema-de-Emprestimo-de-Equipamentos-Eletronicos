@@ -1,11 +1,13 @@
 # Create your views here.
 from django.shortcuts import render, get_object_or_404, redirect
-from manutencao.forms import ManutencaoFormRoot, ManutencaoFormFuncionario, ManutencaoConclusaoForm
+from manutencao.forms import ManutencaoFormRoot, ManutencaoFormFuncionario, ManutencaoConclusaoForm, ManutencaoFormEdit
 from .models import Manutencao
 from funcionario.models import Funcionario
 from django.contrib import messages
-from django.utils import timezone
+from django.contrib.auth.decorators import login_required
+from equipamento.models import Equipamento
 
+@login_required
 def listar_manutencoes(request):
     funcionario = None
     if request.user.is_superuser:
@@ -19,7 +21,14 @@ def listar_manutencoes(request):
     
     return render(request, 'manutencao/listar_manutencoes.html', {'manutencoes': manutencoes, 'funcionario':funcionario})
 
+@login_required
 def criar_manutencao(request):
+    equipamentosDisponiveis = Equipamento.objects.filter(status=1)
+
+    if not equipamentosDisponiveis.exists():
+        messages.warning(request, "No momento, não há equipamentos que necessitem de manutenção.")
+        return redirect('/emprestimo/list/')
+    
     funcionario = None
     
     if request.user.is_superuser:
@@ -43,26 +52,33 @@ def criar_manutencao(request):
 
     return render(request, 'manutencao/form_manutencao.html', {'form': form})
 
+@login_required
 def editar_manutencao(request, pk):
     manutencao = get_object_or_404(Manutencao, pk=pk)
     
     if request.user.is_superuser:
-        form = ManutencaoFormRoot(request.POST or None, instance=manutencao)
+        form = ManutencaoFormEdit(request.POST or None, instance=manutencao)
     else:
-        funcionario = Funcionario.objects.get(id=request.user.id)
+        try:
+            funcionario = Funcionario.objects.get(user=request.user)
+        except Funcionario.DoesNotExist:
+            # Se o Funcionario não existir, redireciona para a lista de manutenções
+           return redirect('listar_manutencoes')
+        
         if funcionario.cargo == 1:  # Root
-            form = ManutencaoFormRoot(request.POST or None, instance=manutencao)
+            form = ManutencaoFormEdit(request.POST or None, instance=manutencao)
         else:
-            if request.user.funcionario != manutencao.funcionario:
-                return redirect('manutencao/listar_manutencoes')
-            form = ManutencaoFormFuncionario(request.POST or None, instance=manutencao)
+            if funcionario != manutencao.funcionario:
+                return redirect('listar_manutencoes')
+            form = ManutencaoFormEdit(request.POST or None, instance=manutencao)
     
     if form.is_valid():
         form.save()
-        return redirect('manutencao/listar_manutencoes')
+        return redirect('listar_manutencoes')
     
     return render(request, 'manutencao/editar_manutencao.html', {'form': form})
 
+@login_required
 def concluir_manutencao(request, pk):
     manutencao = get_object_or_404(Manutencao, pk=pk)
     
@@ -90,11 +106,24 @@ def concluir_manutencao(request, pk):
     
     return render(request, 'manutencao/form_concluir_manutencao.html', {'form': form})
 
+@login_required
 def detalhar_manutencao(request, pk):
     manutencao = Manutencao.objects.get(pk=pk)
     return render(request, 'manutencao/detalhar_manutencao.html', {'manutencao':manutencao})
-    
+  
+@login_required  
 def apagar_manutencao(request, pk):
-    emprestimo = Manutencao.objects.get(pk=pk)
-    emprestimo.delete()
+    manutencao = Manutencao.objects.filter(pk=pk).first()
+    
+    if manutencao:
+        equipamento = manutencao.equipamento
+        
+        # Verifica o status do equipamento e chama o método se necessário
+        if equipamento.status == 3:
+            equipamento.concluirManutencao()
+        
+        # Deleta a instância de Manutencao
+        manutencao.delete()
+    
+    # Redireciona após a exclusão ou se Manutencao não for encontrada
     return redirect('/manutencao/')

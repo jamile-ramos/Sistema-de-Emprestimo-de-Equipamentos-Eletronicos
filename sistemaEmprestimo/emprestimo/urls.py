@@ -8,5 +8,7 @@ urlpatterns = [
     path('detail/<int:emprestimoId>/', views.detail, name='emprestimoDetail'),
     path('edit/<int:emprestimoId>/', views.edit, name='emprestimoEdit'),
     path('remove/<int:emprestimoId>/', views.remove, name='emprestimoRemove'),
-    path('list/', views.list, name='emprestimoList')
+    path('list/', views.list, name='emprestimoList'),
+    path('finish/<int:emprestimoId>/', views.finish, name='emprestimoFinish'),
+    
 ]

@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="pagetitle">
-    <h1>Lista de empréstimos</h1>
+    <h1>Lista de Empréstimos</h1>
     <nav>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/funcionario/">Home</a></li>
@@ -64,11 +64,36 @@
                             <td>
                                 <a class="btn btn-info" href="{% url 'emprestimoDetail' e.id %}" data-bs-toggle="tooltip" data-bs-placement="top" title="Ver detalhes"><i class="bi bi-eye"></i></a>
                                 <a class="btn btn-warning" href="{% url 'emprestimoEdit' e.id  %}" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"><i class="bi bi-pencil"></i></a>
+                               {% if e.status != 1 %}
+                                <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#finishModal-{{ e.id }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Finalizar"><i class="bi bi-check-circle"></i></a>
+                               {% endif %}
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal-{{ e.id }}"><i class="bi bi-trash"></i></button>
                             </td>
                         </tr>
 
-                        <!-- Modal para cada empréstimo -->
+                        <!-- Modal para finalizar o empréstimo -->
+                        <div class="modal fade" id="finishModal-{{ e.id }}" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Confirmar Finalização</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Você está prestes a finalizar o empréstimo da requisitante "{{ e.requisitante }}". Esta ação não pode ser desfeita.
+                                    </div>
+                                    <div class="modal-footer">
+                                        <form method="post" action="{% url 'emprestimoFinish' e.id %}">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-success">Finalizar</button>
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal para exclusão -->
                         <div class="modal fade" id="basicModal-{{ e.id }}" tabindex="-1">
                             <div class="modal-dialog">
                                 <div class="modal-content">

@@ -22,12 +22,13 @@
 
             <!-- Default List group -->
             <ul class="list-group">
-              <li class="list-group-item">Id : {{ emprestimo.id }}</li>
               <li class="list-group-item">Nome : {{ emprestimo.requisitante }}</li>
               <li class="list-group-item">Tipo de Requisitante : {{ emprestimo.get_tipoDoRequisitante_display }}</li>
+              {% if emprestimo.get_tipoDoRequisitante_display == 'Aluno' or emprestimo.get_tipoDoRequisitante_display == 'Professor' %}
               <li class="list-group-item">Curso : {{ emprestimo.curso }}</li>    
+              {% endif %}
               <li class="list-group-item">Equipamentos : 
-                {% if emprestimo.equipamentos.all %}
+                {% if emprestimo.equipamentos.exists %}
                     <ul>
                       {% for equipamento in emprestimo.equipamentos.all %}
                         <li>{{ equipamento.nome }}</li>
@@ -37,10 +38,16 @@
                     Nenhum equipamento
                 {% endif %}
               </li>            
-              <li class="list-group-item">Data do Emprestimo : {{ emprestimo.dataEmprestimo }}</li>
-              <li class="list-group-item">Data de devolução : {{ emprestimo.dataDevolucao }}</li>
+              <li class="list-group-item">Data do Empréstimo : {{ emprestimo.dataEmprestimo|date:"d/m/Y" }}</li>
+              <li class="list-group-item">Data de devolução : {{ emprestimo.dataDevolucao|date:"d/m/Y" }}</li>
               <li class="list-group-item">Observações de devolução : {{ emprestimo.observacoesDeDevolucao }}</li>
-              <li class="list-group-item">Funcionario Responsável : {{ emprestimo.funcionario }}</li>
+              <li class="list-group-item">Funcionário Responsável : 
+                {% if not emprestimo.funcionario %}
+                  Root
+                {% else %}
+                {{ emprestimo.funcionario }}
+                {% endif %}
+              </li>
               <li class="list-group-item">Status : {{ emprestimo.get_status_display }}</li>
               <li class="list-group-item"><a class="btn btn-primary" href="/emprestimo/list/">Voltar</a></li>
             </ul><!-- End Default List group -->

@@ -16,7 +16,7 @@ class Emprestimo(models.Model):
     requisitante = models.CharField(max_length=50)
     tipoDoRequisitante = models.IntegerField(choices=TipoDoRequisitante.choices, default=TipoDoRequisitante.OUTRO)
     sala = models.CharField(max_length=50)
-    curso = models.CharField(max_length=20, null=True)
+    curso = models.CharField(max_length=20, null=True, blank=True)
     dataEmprestimo = models.DateField(default=now, null=False, blank=False)
     dataDevolucao = models.DateField(null=True, blank=True)
     observacoesDeDevolucao = models.CharField(max_length=255, blank=True)  

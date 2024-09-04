@@ -2,7 +2,8 @@ from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from conta.models import Usuario
 from django import forms
-from django.forms import ModelForm, TextInput
+from django.contrib.auth.views import PasswordChangeView
+from django.urls import reverse_lazy
 from django.contrib.auth.forms import PasswordChangeForm
 
 class UsuarioForm(UserCreationForm):
@@ -26,4 +27,4 @@ class UsuarioForm(UserCreationForm):
                 'class': 'form-control form-control-user'
             })
         }
-
+        
