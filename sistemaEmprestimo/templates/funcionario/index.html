@@ -2,10 +2,55 @@
 
 {% block content %}
 
-
-<div class="pagetitle">
-    <h1>Bem-vindo ao SEEE (Sistema de Empréstimo de Equipamentos Eletrônicos)!</h1>
-    <p>Sua solução confiável e eficiente para o empréstimo de equipamentos eletrônicos!</p>
+<div class="pagetitle text-center mt-4">
+    <h1 class="display-4">Bem-vindo ao SEEE!</h1>
+    <p class="lead">Sua solução confiável e eficiente para o empréstimo de equipamentos eletrônicos.</p>
 </div><!-- End Page Title -->
 
-  {% endblock %}
+<div class="row text-center mt-5">
+    <div class="col-md-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body d-flex flex-column">
+                <i class="bi bi-laptop display-1 mb-3"></i>
+                <h5 class="card-title">Equipamentos</h5>
+                <p class="card-text flex-grow-1">Gerencie e acompanhe todos os equipamentos disponíveis para empréstimo.</p>
+                <a href="{% url 'listar_equipamentos' %}" class="btn btn-primary mt-auto">Ver Equipamentos</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body d-flex flex-column">
+                <i class="bi bi-file-earmark-text display-1 mb-3"></i>
+                <h5 class="card-title">Empréstimos</h5>
+                <p class="card-text flex-grow-1">Visualize e gerencie todos os empréstimos de equipamentos.</p>
+                <a href="{% url 'emprestimoList' %}" class="btn btn-success mt-auto">Ver Empréstimos</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body d-flex flex-column">
+                <i class="bi bi-tools display-1 mb-3"></i>
+                <h5 class="card-title">Manutenções</h5>
+                <p class="card-text flex-grow-1">Acompanhe o status de manutenção dos equipamentos.</p>
+                <a href="{% url 'listar_manutencoes' %}" class="btn btn-warning mt-auto">Ver Manutenções</a>
+            </div>
+        </div>
+    </div>
+</div><!-- End Row -->
+
+<!-- Seção Sobre Nós -->
+<div class="container mt-5">
+  <div class="bg-light p-5 rounded shadow-lg">
+      <h3 class="text-center mb-4" style="font-size: 2rem; font-weight: bold; color: #0D3B66;">Sobre Nós</h3>
+      <p class="text-center fs-4" style="font-size: 1.2rem;">
+          O Sistema de Empréstimo de Equipamentos Eletrônicos (SEEE) foi desenvolvido para otimizar o processo de empréstimo de equipamentos eletrônicos. Nossa missão é oferecer uma plataforma intuitiva e eficiente, que permita o gerenciamento prático e seguro de recursos tecnológicos.
+      </p>
+      <p class="text-center fs-4" style="font-size: 1.2rem;">
+          Com uma interface amigável e funcionalidades robustas, o SEEE garante controle total sobre os empréstimos, desde a solicitação até a devolução, assegurando a integridade dos equipamentos e a satisfação dos usuários.
+      </p>
+  </div>
+</div><!-- End Seção Sobre Nós -->
+
+{% endblock %}
