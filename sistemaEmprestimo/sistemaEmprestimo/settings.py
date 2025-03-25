@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'emprestimo',
     'equipamento',
     'itemEmprestimo',
-    'manutencao'
+    'manutencao',
+    'api', 
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -136,3 +138,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = '/funcionario/'
 LOGOUT_REDIRECT_URL = '/conta/login/'
 LOGIN_URL = '/conta/login/'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}

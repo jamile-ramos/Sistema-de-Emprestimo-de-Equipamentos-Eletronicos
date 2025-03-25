@@ -1,0 +1,6 @@
+projectKey=Sistema-de-Emprestimo-de-Equipamentos-Eletronicos
+serverUrl=http://localhost:9000
+serverVersion=25.3.0.104237
+dashboardUrl=http://localhost:9000/dashboard?id=Sistema-de-Emprestimo-de-Equipamentos-Eletronicos
+ceTaskId=8f470959-3655-4024-ba9e-85ff6c8e8808
+ceTaskUrl=http://localhost:9000/api/ce/task?id=8f470959-3655-4024-ba9e-85ff6c8e8808
